@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <h4><td th:text ="${member.name}"></td><th>의 장바구니</th></h4>
+        <br>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>합계</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+<!--주문 Item 표시-->
+            <tr th:each="cartLine : ${cartLines}">
+                <td th:text="${cartLine.itemName}"></td>
+                <td th:text="${cartLine.itemPrice}"></td>
+                <td th:text="${cartLine.orderCount}"></td>
+                <td th:text="${cartLine.totalPrice}"></td>
+                <td>
+                    <button id="cartLineItemId" th:value="${cartLine.itemId}" type="button"
+                            class="btn btn-danger" onclick="deleteCartItem()">삭제</button>
+                </td>
+            </tr>
+<!--Item 선택 및 담기-->
+            <tr>
+                <td>
+                    <select name="itemId" id="item" class="form-control" onchange="loadItemInfo()">
+                        <option value="">상품선택</option>
+                        <option th:each="item : ${items}"
+                            th:value="${item.id}"
+                            th:text="${item.name}"></option>
+                </select></td>
+                <td id="itemPrice" class ="col-sm-3"></td>
+                <td class="col-sm-3">
+                    <div class="input-group">
+                        <input type="number" id="orderCount" class="form-control col-sm-4" value="0">
+                     </div>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="addCartItem()">담기</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-warning btn-lg float-right" onclick="CartOrder()">일괄주문</button>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+<script>
+    function loadItemInfo() {
+        var itemId = $('#item').val();
+             $.ajax({
+                url: '/items/' + itemId,
+                method: 'GET',
+                 success: function(response) {
+                    $('#itemPrice').text(response.price);
+                },
+                error: function() {
+                    console.log('에러 발생');
+                }
+        });
+    }
+
+    function getMemberId() {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('memberId');
+    }
+
+    function addCartItem() {
+        var memberId = getMemberId();
+        var itemId = $('#item').val();
+        var orderCount = $('#orderCount').val();
+
+        var url = '/cart?memberId=' + memberId + '&itemId=' + itemId + '&orderCount=' + orderCount;
+        // 장바구니에 담는 로직을 추가합니다.
+        $.ajax({
+            url: url,
+            method: 'POST',
+            success: function(response) {
+            location.reload(); // 페이지 리로드
+            },
+            error: function() {
+                console.log('에러 발생');
+            }
+        });
+    }
+
+    function deleteCartItem() {
+        var memberId = getMemberId();
+        var itemId = $('#cartLineItemId').val();
+
+        var url = '/cart/' + memberId + '/delete/' + itemId;
+        $.ajax({
+            url: url,
+            method: 'POST',
+            success: function(response) {
+            location.reload(); // 페이지 리로드
+            },
+            error: function() {
+                console.log('에러 발생');
+            }
+        });
+    }
+
+    function CartOrder() {
+        var memberId = getMemberId(); // 여기에 적절한 멤버 ID 값을 넣어야 합니다.
+        var url = '/cart/' + memberId + '/cartOrder/';
+        $.ajax({
+            url: url,
+            method: 'POST',
+            success: function(response) {
+                window.location.href = '/orders'; //'/orders' 페이지로 이동
+            },
+            error: function() {
+                console.log('에러 발생');
+            }
+        });
+    }
+</script>
+</html>

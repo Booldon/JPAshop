@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <form role="form" action="/carts" method="post">
+    <div class="form-group">
+      <label for="member">회원선택</label>
+      <select name="memberId" id="member" class="form-control">
+        <option value="">장바구니 회원</option>
+        <option th:each="member : ${members}"
+                th:value="${member.id}"
+                th:text="${member.name}"
+
+        />
+      </select>
+    </div>
+    </br>
+    <button type="submit" class="btn btn-primary">생성</button>
+    <button type="button" class="btn btn-primary" onclick="redirectToCart()">담기</button>
+
+  </form>
+  <div th:replace="fragments/footer :: footer"/>
+</div><!-- /container -->
+</body>
+<script>
+  function redirectToCart() {
+    var memberId = document.getElementById("member").value;
+    if (memberId) {
+      window.location.href = '/cart?memberId=' + memberId;
+    }
+  }
+</script>
+</html>
