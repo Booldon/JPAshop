@@ -10,3 +10,5 @@ PPT파일에 Entity ERD 다이어그램을 만들었으니 참고하시면 감�
 상당 부분 김영한님의 "실전스프림부트JPA활용" 강의를 참고하여 개발하였습니다.
 
 새로 추가된 부분은 예외처리, 장바구니 기능이며 장바구니는 DTO, DAO를 활용해서 개발해보았습니다.
+
+ ![initial](https://github.com/Booldon/JPAshop/issues/1#issue-1835994418)
