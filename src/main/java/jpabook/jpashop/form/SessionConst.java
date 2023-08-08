@@ -1,0 +1,6 @@
+package jpabook.jpashop.form;
+
+public class SessionConst {
+    public static final String LOGIN_MEMBER = "loginMember";
+
+}

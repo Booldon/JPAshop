@@ -2,6 +2,7 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.exception.CartDuplicationException;
 import jpabook.jpashop.exception.ItemDeleteException;
+import jpabook.jpashop.exception.LoginFailException;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,6 +31,13 @@ public class ExceptionHandlerController {
         model.addAttribute("exception",exception);
 
         return "exception/CartDuplicationError";
+    }
+
+    @ExceptionHandler(LoginFailException.class)
+    public String handleLoginFailException(LoginFailException exception, Model model) {
+        model.addAttribute("exception",exception);
+
+        return "exception/LoginFailError";
     }
 
 

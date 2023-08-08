@@ -3,6 +3,7 @@ package jpabook.jpashop.controller;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.form.SessionConst;
 import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.ItemService;
 import jpabook.jpashop.service.MemberService;
@@ -23,11 +24,12 @@ public class OrderController {
     private final ItemService itemService;
 
     @GetMapping("/order")
-    public String createForm(Model model) {
+    public String createForm(@SessionAttribute(name=SessionConst.LOGIN_MEMBER,required = false) Member member, Model model) {
 
         List<Member> members = memberService.findMembers();
         List<Item> items = itemService.findItems();
 
+        model.addAttribute("member",member);
         model.addAttribute("members", members);
         model.addAttribute("items",items);
 

@@ -50,8 +50,8 @@ public class MemberService {
           // name에 유니크 속성 넣어주는 것을 권장
     }
 
-    //회원 전체 조회
 
+    //회원 전체 조회
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }

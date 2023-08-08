@@ -62,8 +62,8 @@ public class CartServiceTest {
         Member member = createMember();
 
         //when
-        cartService.Cart(member.getId());
-        cartService.Cart(member.getId());
+        cartService.cart(member);
+        cartService.cart(member);
 
         //then
         fail("예외가 발생해야 합니다.");
@@ -76,7 +76,7 @@ public class CartServiceTest {
         Member member = createMember();
         Item item = createBook("시골 JPA", 10000, 10);
         Cart cart = new Cart(member);
-        cartService.Cart(member.getId());
+        cartService.cart(member);
 
         //when
         cartService.addItemToCart(cart.getId(),item.getId(),5);

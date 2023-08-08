@@ -28,10 +28,6 @@ public class Cart {
     private Member member;
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    private Order order;
-
 
 
     // == 연관관계 메서드 == //

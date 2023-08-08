@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository //스프링 빈으로 자동 등록
 @RequiredArgsConstructor //스프링 부트에서 자동으로 @Autowired를 @PersistenceContext로 자동 등록
@@ -30,4 +31,10 @@ public class MemberRepository {
                 .setParameter("name",name)
                 .getResultList();
     }
+    public Optional<Member> findByMemberId(String userId){
+        return em.createQuery("select m from Member m where m.userId =: userId",Member.class)
+                .setParameter("userId",userId)
+                .getResultList().stream().findAny();
+    }
+
 }

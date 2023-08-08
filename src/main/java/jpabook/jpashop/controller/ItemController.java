@@ -2,6 +2,7 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.form.BookForm;
 import jpabook.jpashop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

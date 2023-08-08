@@ -35,10 +35,8 @@ public class CartService {
     private CartLineDto cartLineDto;
 
 
-    public void Cart(Long memberId) {
-        validateDuplicateCart(memberId);
-        Member member = memberRepository.findOne(memberId);
-
+    public void cart(Member member) {
+        validateDuplicateCart(member.getId());
         Cart cart = new Cart(member);
         cartRepository.save(cart);
     }

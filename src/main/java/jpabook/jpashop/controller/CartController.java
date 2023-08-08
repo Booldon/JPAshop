@@ -25,18 +25,18 @@ public class CartController {
 
     private final OrderService orderService;
 
-    @GetMapping("/carts")
-    public String createCartForm(Model model) {
-        List<Member> members = memberService.findMembers();
-        model.addAttribute("members",members);
-        return "cart/createCartForm";
-    }
+//    @GetMapping("/carts")
+//    public String createCartForm(Model model) {
+//        List<Member> members = memberService.findMembers();
+//        model.addAttribute("members",members);
+//        return "cart/createCartForm";
+//    }
 
-    @PostMapping("/carts")
-    public String createCart(@RequestParam("memberId") Long memberId) {
-        cartService.Cart(memberId);
-        return "redirect:/carts";
-    }
+//    @PostMapping("/carts")
+//    public String createCart(@RequestParam("memberId") Long memberId) {
+//        cartService.Cart(memberId);
+//        return "redirect:/carts";
+//    }
 
     @GetMapping("/cart")
     public String Cart(@RequestParam("memberId") Long memberId, Model model) {

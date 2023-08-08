@@ -28,9 +28,18 @@
             <input type="number" name="count" class="form-control" id="count" placeholder="주문 수량을 입력하세요">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a th:href="@{/cart(memberId=${session.loginMember.id})}" class="btn btn-success">장바구니</a>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
+<script>
+  function redirectToCart() {
+    var memberId = document.getElementById("member").value;
+    if (memberId) {
+      window.location.href = '/cart?memberId=' + memberId;
+    }
+  }
+</script>
 </html>

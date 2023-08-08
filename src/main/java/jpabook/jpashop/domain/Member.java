@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import jpabook.jpashop.repository.MemberRepository;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,10 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    private String userId;
+
+    private String password;
+
     private String name;
 
     @Embedded
@@ -27,4 +32,17 @@ public class Member {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
+
+    public static Member createMember(String userId, String password, String name, Address address) {
+        Member member = new Member();
+        member.setUserId(userId);
+        member.setPassword(password);
+        member.setName(name);
+        member.setAddress(address);
+
+        return member;
+    }
 }

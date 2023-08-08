@@ -32,10 +32,6 @@ public class Order {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
     private LocalDateTime orderDate; //주문시간
 
     @Enumerated(EnumType.STRING)
